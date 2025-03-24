@@ -1,13 +1,13 @@
-resource "aws_db_subnet_group" "rds-subnet-group" {
-  name       = "rds-subnet-group"
-  subnet_ids = [aws_subnet.private-subnet.id, aws_subnet.private-subnet-2.id]
+resource "aws_db_subnet_group" "rds_subnet_group" {
+  name       = "rds_subnet_group"
+  subnet_ids = [aws_subnet.private_subnet.id, aws_subnet.private_subnet-2.id]
 
   tags = {
-    Name = "rds-subnet-group"
+    Name = "rds_subnet_group"
   }
 }
 
-resource "aws_db_instance" "rds-instance" {
+resource "aws_db_instance" "rds_instance" {
   allocated_storage    = 20
   db_name              = "mydb"
   engine               = "mysql"
@@ -18,10 +18,10 @@ resource "aws_db_instance" "rds-instance" {
   parameter_group_name = "default.mysql8.0"
   skip_final_snapshot  = true
   tags = {
-    Name = "rds-instance"
+    Name = "rds_instance"
   }
 }
 
-output "rds-endpoint" {
-    value = aws_db_instance.rds-instance.endpoint
+output "rds_endpoint" {
+    value = aws_db_instance.rds_instance.endpoint
 }
