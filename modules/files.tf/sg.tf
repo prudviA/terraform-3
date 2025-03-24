@@ -1,7 +1,7 @@
-resource "aws_security_group" "app-sg" {
-  name        = "app-sg"
+resource "aws_security_group" "app_sg" {
+  name        = "app_sg"
   description = "Allow TLS inbound traffic and all outbound traffic"
-  vpc_id      = aws_vpc.3-tier.id
+  vpc_id      = aws_vpc.3_tier.id
 
 
 
@@ -30,14 +30,14 @@ egress {
     cidr_blocks = ["0.0.0.0/0"]
   }
   tags = {
-    Name = "app-sg"
+    Name = "app_sg"
   }
 }
 # Security Group for RDS Database (Database Layer)
-resource "aws_security_group" "db-sg" {
-  name        = "db-sg"
+resource "aws_security_group" "db_sg" {
+  name        = "db_sg"
   description = "Allow inbound traffic from application to RDS"
-  vpc_id      =  aws_vpc.3-tier.id
+  vpc_id      =  aws_vpc.3_tier.id
 
   # Inbound Rule - Allow MySQL traffic from EC2 subnet to RDS
   ingress {
@@ -56,15 +56,15 @@ resource "aws_security_group" "db-sg" {
   }
 
   tags = {
-    Name = "db-sg"
+    Name = "db_sg"
   }
 }
 
 
-output "app-sg.id" {
-  value = aws_security_group.app-sg.id
+output "app_sg.id" {
+  value = aws_security_group.app_sg.id
 }
 
-output "db-sg.id" {
-  value = aws_security_group.db-sg.id
+output "db_sg.id" {
+  value = aws_security_group.db_sg.id
 }
