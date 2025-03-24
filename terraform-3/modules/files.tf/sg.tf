@@ -44,7 +44,7 @@ resource "aws_security_group" "db_sg" {
     from_port       = 3306
     to_port         = 3306
     protocol        = "tcp"
-    security_groups = [aws_security_group.app_sg] # Allow EC2 access to RDS
+    security_groups = aws_security_group.app_sg # Allow EC2 access to RDS
   }
 
   # Outbound Rule - Allow all outbound traffic
@@ -61,10 +61,10 @@ resource "aws_security_group" "db_sg" {
 }
 
 
-output "app_sg.id" {
+output "app_sg_id" {
   value = aws_security_group.app_sg.id
 }
 
-output "db_sg.id" {
+output "db_sg_id" {
   value = aws_security_group.db_sg.id
 }
