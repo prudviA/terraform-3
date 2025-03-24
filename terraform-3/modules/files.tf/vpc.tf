@@ -64,7 +64,7 @@ resource "aws_route_table_association" "public_subnet_association" {
 }
 
 output "vpc_id" {
-    value = aws_vpc.three_tier_vpc.id
+    value = aws_vpc.three_tier.id
 }
 
 output "public_subnet_id" {
@@ -72,5 +72,5 @@ output "public_subnet_id" {
 }
 
 output "private_subnet_id" {
-    value = [aws_subnet.private_sunets.id, aws_subnet.private_subnet-2.id]
+    value = [aws_subnet.private_subnet.id, aws_subnet.private_subnet-2.id]
 }
