@@ -1,5 +1,5 @@
-resource "aws_security_group" "app_sg" {
-  name        = "app_sg"
+resource "aws_security_group" "ec2_sg" {
+  name        = "ec2_sg"
   description = "Allow TLS inbound traffic and all outbound traffic"
   vpc_id      = aws_vpc.three_tier.id
 
@@ -30,7 +30,7 @@ egress {
     cidr_blocks = ["0.0.0.0/0"]
   }
   tags = {
-    Name = "app_sg"
+    Name = "ec2_sg"
   }
 }
 # Security Group for RDS Database (Database Layer)
@@ -61,8 +61,8 @@ resource "aws_security_group" "db_sg" {
 }
 
 
-output "app_sg_id" {
-  value = aws_security_group.app_sg.id
+output "ec2_sg_id" {
+  value = aws_security_group.ec2_sg.id
 }
 
 output "db_sg_id" {
