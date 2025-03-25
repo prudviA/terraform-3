@@ -37,7 +37,7 @@ resource "aws_db_instance" "rds_instance" {
   engine_version       = "8.0"
   instance_class       = "db.t3.micro"
   username             = "admin"
-  password             = "Achuth@1997"
+  password             = "12345678"
   parameter_group_name = "default.mysql8.0"
   skip_final_snapshot  = true
   publicly_accessible = true
