@@ -66,7 +66,7 @@ resource "aws_route_table_association" "public_assoc" {
 #Allocate Elastic IP
 
 resource "aws_eip" "nat_eip" {
-    domain = vpc
+    domain = "vpc"
 }
 
 # creating NAT gateway
