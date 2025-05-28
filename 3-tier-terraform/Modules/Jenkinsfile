@@ -14,24 +14,30 @@ pipeline {
 
         stage('Terraform Init') {
             steps {
-                dir("${TF_DIR}") {
-                    sh 'terraform init'
+                withCredentials([usernamePassword(credentialsId: 'aws-creds', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                    dir("${TF_DIR}") {
+                        sh 'terraform init'
+                    }
                 }
             }
         }
 
         stage('Terraform Plan') {
             steps {
-                dir("${TF_DIR}") {
-                    sh 'terraform plan'
+                withCredentials([usernamePassword(credentialsId: 'aws-creds', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                    dir("${TF_DIR}") {
+                        sh 'terraform plan'
+                    }
                 }
             }
         }
 
         stage('Terraform Apply') {
             steps {
-                dir("${TF_DIR}") {
-                    sh 'terraform apply -auto-approve'
+                withCredentials([usernamePassword(credentialsId: 'aws-creds', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                    dir("${TF_DIR}") {
+                        sh 'terraform apply -auto-approve'
+                    }
                 }
             }
         }
@@ -45,8 +51,10 @@ pipeline {
 
         stage('Terraform Destroy') {
             steps {
-                dir("${TF_DIR}") {
-                    sh 'terraform destroy -auto-approve'
+                withCredentials([usernamePassword(credentialsId: 'aws-creds', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                    dir("${TF_DIR}") {
+                        sh 'terraform destroy -auto-approve'
+                    }
                 }
             }
         }
@@ -58,4 +66,3 @@ pipeline {
         }
     }
 }
-
