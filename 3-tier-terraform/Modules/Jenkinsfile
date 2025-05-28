@@ -1,0 +1,61 @@
+pipeline {
+    agent any
+
+    environment {
+        TF_DIR = '3-tier-terraform/Modules'
+    }
+
+    stages {
+        stage('Checkout Code') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Terraform Init') {
+            steps {
+                dir("${TF_DIR}") {
+                    sh 'terraform init'
+                }
+            }
+        }
+
+        stage('Terraform Plan') {
+            steps {
+                dir("${TF_DIR}") {
+                    sh 'terraform plan'
+                }
+            }
+        }
+
+        stage('Terraform Apply') {
+            steps {
+                dir("${TF_DIR}") {
+                    sh 'terraform apply -auto-approve'
+                }
+            }
+        }
+
+        stage('Wait 5 Minutes') {
+            steps {
+                echo 'Sleeping for 5 minutes before destroy...'
+                sleep(time: 5, unit: 'MINUTES')
+            }
+        }
+
+        stage('Terraform Destroy') {
+            steps {
+                dir("${TF_DIR}") {
+                    sh 'terraform destroy -auto-approve'
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Pipeline finished. All resources are destroyed.'
+        }
+    }
+}
+
